@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, CreditCard, Gamepad2, Coins, Zap, ArrowRight, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import {
+  Menu,
+  Trophy,
+  Users,
+  Gamepad2,
+  Coins,
+  Zap,
+  ArrowRight,
+  Check,
+  Pi,
+  Dna,
+  FlaskConical,
+} from 'lucide-react';
 
-// --- Components ---
+// --- Shared UI ---
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,21 +26,42 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-tesoro-black/90 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        <div className="text-white font-display font-bold text-3xl tracking-tighter">
-          TESORO<span className="text-xs align-top">®</span>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-black/90 backdrop-blur-md py-3'
+          : 'bg-gradient-to-b from-black/80 to-transparent py-5'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+        {/* Brand */}
+        <div className="flex items-baseline justify-start cursor-pointer" onClick={() => document.location.replace('/')}>
+              <span className="w-fit text-white font-display font-black text-xl tracking-tight">
+                Clash of Prodigies&nbsp;
+              <span className="uppercase tracking-tight text-tesoro-green text-2xl">2</span>
+              </span>
         </div>
-        
+
+        {/* Desktop nav */}
         <div className="hidden md:flex items-center space-x-8 text-white font-medium text-sm">
-          <a href="#" className="hover:text-tesoro-green transition-colors">MERCHANTS</a>
-          <a href="#" className="hover:text-tesoro-green transition-colors">GAME STUDIOS</a>
-          <a href="#" className="hover:text-tesoro-green transition-colors">GAMERS</a>
-          <button className="bg-tesoro-yellow text-tesoro-black px-6 py-2 rounded-full font-bold hover:scale-105 transition-transform">
-            JOIN THE WAITLIST
+          <a href="#about" className="hover:text-tesoro-green transition-colors">
+            About
+          </a>
+          <a href="#tracks" className="hover:text-tesoro-green transition-colors">
+            Subjects
+          </a>
+          <a href="#how" className="hover:text-tesoro-green transition-colors">
+            How it works
+          </a>
+          <a href="#impact" className="hover:text-tesoro-green transition-colors">
+            Impact
+          </a>
+          <button className="bg-tesoro-yellow text-black px-5 py-2 rounded-full font-bold hover:scale-105 transition-transform">
+            Register
           </button>
         </div>
-        
+
+        {/* Mobile menu trigger (we can wire it later) */}
         <button className="md:hidden text-white">
           <Menu />
         </button>
@@ -42,128 +76,242 @@ const Hexagon = ({ className }) => (
   </svg>
 );
 
+// --- Sections ---
+
 const Hero = () => {
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-tesoro-black">
-      {/* Background Image simulating the video */}
-      <div className="absolute inset-0 opacity-60">
-        <img 
-          src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=2000&auto=format&fit=crop" 
-          alt="Gamer Girl" 
+    <section className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* Background image */}
+      <div className="absolute inset-0 opacity-70">
+        <img
+          src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=2000&q=80"
+          alt="Students in a STEM lab"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-tesoro-black via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-end pb-24">
-        <motion.h1 
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-white font-display font-extrabold text-[15vw] leading-[0.8] tracking-tighter"
-        >
-          TESORO<span className="text-4xl align-top">®</span>
-        </motion.h1>
-        
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-white text-xl md:text-3xl max-w-2xl mt-8 font-medium"
-        >
-          The rewards platform built for the <br/>
-          <span className="text-tesoro-green">$125+ Billion gaming economy.</span>
-        </motion.p>
+      {/* Content */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 flex flex-col lg:flex-row items-end lg:items-center">
+        <div className="w-full lg:w-3/5">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-tesoro-green mb-4"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-tesoro-green" />
+            STEM Competition for Ordinary and Advanced Levels
+          </motion.p>
 
-        {/* Floating Element Animation */}
-        <motion.div 
-          animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 right-10 md:right-1/4 w-32 md:w-48"
+          <motion.h1
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="text-white font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight"
+          >
+            Turn your classroom brilliance into
+            <span className="text-tesoro-yellow"> championship wins.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-white/80 text-base sm:text-lg max-w-xl mt-6"
+          >
+            Clash of Prodigies brings together top students in Mathematics,
+            Physics, Chemistry, and Biology in a fast-paced, game-style
+            tournament, but for problem solving.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-4 mt-8"
+          >
+            <button className="inline-flex items-center justify-center gap-2 bg-tesoro-green text-black font-semibold px-6 py-3 rounded-full hover:scale-105 transition-transform">
+              <Trophy className="w-4 h-4" />
+              Register for Season 2
+            </button>
+            <button className="inline-flex items-center justify-center gap-2 border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/10 transition-colors">
+              <ArrowRight className="w-4 h-4" />
+              Download rulebook
+            </button>
+          </motion.div>
+
+          <div className="flex flex-wrap gap-4 mt-8 text-xs text-white/60">
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-tesoro-green" />
+              Open to high school and college students
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-tesoro-green" />
+              Team and individual events
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-tesoro-green" />
+              Scholarships and tech prizes
+            </div>
+          </div>
+        </div>
+
+        {/* Floating card on the right */}
+        <motion.div
+          animate={{ y: [0, -15, 0], rotate: [0, 4, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-full lg:w-2/5 flex justify-end mt-12 lg:mt-0"
         >
-           <div className="bg-tesoro-red/90 p-6 rounded-2xl transform rotate-12 backdrop-blur-sm border border-white/20">
-              <CreditCard className="text-white w-12 h-12" />
-           </div>
+          <div className="bg-white/10 border border-white/15 backdrop-blur-lg rounded-3xl p-6 max-w-xs rotate-3">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-semibold text-tesoro-green uppercase tracking-[0.2em]">
+                Live scoreboard
+              </span>
+              <Gamepad2 className="w-5 h-5 text-tesoro-yellow" />
+            </div>
+            <p className="text-sm text-white/80 mb-4">
+              Match-style fixtures, bonus rounds, and tiebreaker questions keep
+              students engaged from kickoff to finals.
+            </p>
+            <div className="space-y-2 text-xs">
+              <div className="flex justify-between">
+                <span className="text-white/70">Schools registered</span>
+                <span className="font-semibold text-white">48</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-white/70">States represented</span>
+                <span className="font-semibold text-white">10</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-white/70">Max team size</span>
+                <span className="font-semibold text-white">4 students</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
 const ValueProp = () => {
   return (
-    <section className="bg-tesoro-cream py-32 relative overflow-hidden">
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <motion.h2 
-          initial={{ opacity: 0, y: 50 }}
+    <section
+      id="about"
+      className="bg-tesoro-cream py-20 relative overflow-hidden"
+    >
+      <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-display font-bold text-5xl md:text-7xl text-tesoro-black mb-6"
+          className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-tesoro-black mb-4"
         >
-          Your brand. Their game.<br />
+          A STEM tournament that feels like a championship,
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-tesoro-orange to-tesoro-yellow">
-            Everyone wins.
+            {' '}
+            not an exam.
           </span>
         </motion.h2>
-        <p className="text-gray-500 text-xl max-w-2xl mx-auto">
-          Our patented system connects brands to gamers like never before, turning real-world spending into the currency they actually care about.
+        <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mt-4">
+          Clash of Prodigies combines curriculum-aligned questions with
+          game-style fixtures, leaderboards, and live commentary. Students get
+          all the rigor of Olympiad-level problem solving, wrapped in the energy
+          of match day.
         </p>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-3 text-left">
+          <ValuePill
+            title="Built for everyone"
+            body="Simple registration, clear rules, and a schedule that respects the general academic calendars."
+          />
+          <ValuePill
+            title="Fair & inclusive"
+            body="Standardized question pools, tiered difficulty, and multiple paths to shine."
+          />
+          <ValuePill
+            title="Future focused"
+            body="Helps students build confidence for important exams and careers."
+          />
+        </div>
       </div>
-      
-      {/* Decorative Hexagons */}
-      <Hexagon className="text-tesoro-green/20 w-64 h-64 absolute top-0 -left-20 animate-pulse" />
-      <Hexagon className="text-tesoro-purple/20 w-48 h-48 absolute bottom-0 -right-10" />
+
+      {/* Decorative shapes */}
+      <Hexagon className="text-tesoro-green/10 w-64 h-64 absolute -top-16 -left-20" />
+      <Hexagon className="text-tesoro-purple/10 w-40 h-40 absolute -bottom-10 right-4" />
     </section>
   );
 };
 
+const ValuePill = ({ title, body }) => (
+  <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+    <h3 className="font-semibold text-tesoro-black mb-2">{title}</h3>
+    <p className="text-sm text-gray-600">{body}</p>
+  </div>
+);
+
 const HowItWorks = () => {
   const steps = [
-    { 
-      color: 'bg-tesoro-red', 
-      icon: <CreditCard className="w-12 h-12 text-white" />, 
-      title: 'Connect', 
-      desc: 'Gamers connect their Visa / Mastercard cards to Tesoro.' 
+    {
+      color: 'bg-tesoro-red',
+      icon: <Users className="w-10 h-10 text-white" />,
+      title: 'Form your team',
+      desc: 'Register as teams and individuals in the four STEM subjects.',
     },
-    { 
-      color: 'bg-tesoro-orange', 
-      icon: <Zap className="w-12 h-12 text-white" />, 
-      title: 'Activate', 
-      desc: 'Activate offers at participating merchants to earn in-game currency.' 
+    {
+      color: 'bg-tesoro-orange',
+      icon: <Zap className="w-10 h-10 text-white" />,
+      title: 'Compete in Events',
+      desc: 'Teams and individuals compete in timed quiz fixtures hosted online',
     },
-    { 
-      color: 'bg-tesoro-green', 
-      icon: <CreditCard className="w-12 h-12 text-white" />, 
-      title: 'Spend', 
-      desc: 'Pay using connected cards in-store, in-app, or online.' 
+    {
+      color: 'bg-tesoro-green',
+      icon: <Coins className="w-10 h-10 text-white" />,
+      title: 'Accrue, Build, Connect',
+      desc: 'Gain vital points, be involved in the community and connect with others',
     },
-    { 
-      color: 'bg-tesoro-purple', 
-      icon: <GamePadIcon />, // Custom component below
-      title: 'Reward', 
-      desc: 'Tesoro rewards gamers with in-game currency for each transaction.' 
+    {
+      color: 'bg-tesoro-purple',
+      icon: <Trophy className="w-10 h-10 text-white" />,
+      title: 'Dominate and Win',
+      desc: 'Event winners earn scholarships, cash prizes, and bragging rights',
     },
   ];
 
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-6">
+    <section id="how" className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <div>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-tesoro-black mb-3">
+              How the competition works
+            </h2>
+            <p className="text-gray-600 max-w-md text-sm sm:text-base">
+              We borrowed the clarity and organisation of soccer competitions and applied it to
+              STEM quizzes. Clear stages, visible progress, and plenty of drama.
+            </p>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
+              key={step.title}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`${step.color} rounded-[2rem] p-8 aspect-square flex flex-col justify-between hover:scale-[1.02] transition-transform duration-300 shadow-xl`}
+              className={`${step.color} rounded-[2rem] p-7 h-fit hover:scale-[1.02] transition-transform duration-300 shadow-xl`}
             >
               <div className="bg-black/10 w-fit p-4 rounded-full backdrop-blur-sm">
                 {step.icon}
               </div>
               <div>
-                <h3 className="font-display font-bold text-3xl text-white mb-2">{step.title}</h3>
-                <p className="text-white/90 font-medium leading-tight">{step.desc}</p>
+                <h3 className="font-display font-bold text-2xl text-white mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-white/90 text-sm leading-snug">{step.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -173,174 +321,232 @@ const HowItWorks = () => {
   );
 };
 
-const CurrencySection = () => {
+const TracksSection = () => {
   return (
-    <section className="bg-tesoro-purple py-32 relative">
-      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <section
+      id="tracks"
+      className="bg-tesoro-black py-24 relative overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
         <div>
-          <h2 className="font-display font-bold text-5xl md:text-7xl text-tesoro-black mb-6 leading-none">
-            Turn every purchase into the <br/>
-            <span className="text-white">in-game currency you want.</span>
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">
+            Four leagues. Two tournaments.
+            <span className="text-tesoro-yellow"> One Competition.</span>
           </h2>
-          <div className="flex gap-4 mt-8">
-            <div className="bg-white/20 backdrop-blur-md p-4 rounded-xl flex items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1612287230217-15ad0ebc26dc?auto=format&fit=crop&w=100&q=80" className="w-12 h-12 rounded-full object-cover" alt="Gamer" />
-              <span className="font-bold text-tesoro-black">Earns V-Bucks</span>
-            </div>
+          <p className="text-white/80 text-sm sm:text-base max-w-md">
+            Students compete in Mathematics, Physics, Chemistry, and Biology
+            through individual sprints, team relays, and buzzer rounds. Each
+            match is scored to feed into its respective league table.
+          </p>
+
+          <div className="mt-8 space-y-3 text-xs sm:text-sm text-white/70">
+            <FeatureLine label="Question types" value="MCQ, structured, rapid-fire" />
+            <FeatureLine label="Difficulty" value="From curriculum-aligned to Olympiad-style" />
+            <FeatureLine label="Round length" value="15–30 minutes per fixture" />
           </div>
         </div>
 
         <div className="space-y-4">
-          {/* Card 1 */}
-          <motion.div 
-             whileHover={{ scale: 1.05 }}
-             className="bg-tesoro-yellow rounded-2xl p-6 flex items-center justify-between shadow-lg"
-          >
-            <div className="flex items-center gap-4">
-               <div className="bg-yellow-600/20 p-3 rounded-full"><Coins className="text-yellow-900" /></div>
-               <div>
-                 <h4 className="font-bold text-xl text-yellow-900">Gold Bars</h4>
-                 <p className="text-yellow-800 text-sm">Candy Crush</p>
-               </div>
-            </div>
-            <ArrowRight className="text-yellow-900" />
-          </motion.div>
+          <SubjectCard
+            accent="bg-blue-400"
+            icon={<Pi className="text-blue-900" />}
+            title="House of Odin - Mathematics"
+            subtitle="Algebra, combinatorics, number theory, and word problems that reward creative thinking."
+          />
+          <SubjectCard
+            accent="bg-red-400"
+            icon={<Zap className="text-red-900" />}
+            title="House of Bami - Physics"
+            subtitle="Mechanics, waves, electricity, and everyday reasoning about how the world works."
+          />
+          <SubjectCard
+            accent="bg-green-400"
+            icon={<Dna className="text-green-900" />}
+            title="House of Weber - Biology"
+            subtitle="Stoichiometry, reactions, cells, genetics, and real-world applications in health and industry."
+          />
+          <SubjectCard
+            accent="bg-yellow-400"
+            icon={<FlaskConical className="text-yellow-900" />}
+            title="House of Wonder - Chemistry"
+            subtitle="Stoichiometry, reactions, cells, genetics, and real-world applications in health and industry."
+          />
+        </div>
+      </div>
 
-          {/* Card 2 */}
-          <motion.div 
-             whileHover={{ scale: 1.05 }}
-             className="bg-blue-400 rounded-2xl p-6 flex items-center justify-between shadow-lg"
-          >
-            <div className="flex items-center gap-4">
-               <div className="bg-blue-600/20 p-3 rounded-full"><Zap className="text-blue-900" /></div>
-               <div>
-                 <h4 className="font-bold text-xl text-blue-900">V-Bucks</h4>
-                 <p className="text-blue-900 text-sm">Fortnite</p>
-               </div>
-            </div>
-            <ArrowRight className="text-blue-900" />
-          </motion.div>
+      {/* Background image hint of science lab */}
+      <div className="absolute inset-y-0 right-0 w-1/2 opacity-10 pointer-events-none hidden lg:block">
+        <img
+          src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1600&q=80"
+          alt="Science lab"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </section>
+  );
+};
 
-           {/* Card 3 */}
-           <motion.div 
-             whileHover={{ scale: 1.05 }}
-             className="bg-green-400 rounded-2xl p-6 flex items-center justify-between shadow-lg"
-          >
-            <div className="flex items-center gap-4">
-               <div className="bg-green-600/20 p-3 rounded-full"><Gamepad2 className="text-green-900" /></div>
-               <div>
-                 <h4 className="font-bold text-xl text-green-900">Robux</h4>
-                 <p className="text-green-900 text-sm">Roblox</p>
-               </div>
+const SubjectCard = ({ accent, icon, title, subtitle }) => (
+  <motion.div
+    whileHover={{ scale: 1.03 }}
+    className={`${accent} rounded-2xl p-5 flex items-start gap-4 shadow-lg`}
+  >
+    <div className="bg-black/10 p-3 rounded-full">{icon}</div>
+    <div>
+      <h4 className="font-bold text-base sm:text-lg text-black mb-1">
+        {title}
+      </h4>
+      <p className="text-xs sm:text-sm text-black/80">{subtitle}</p>
+    </div>
+  </motion.div>
+);
+
+const FeatureLine = ({ label, value }) => (
+  <div className="flex justify-between gap-4">
+    <span className="uppercase tracking-[0.2em] text-[0.6rem] text-white/60">
+      {label}
+    </span>
+    <span className="text-[0.7rem] sm:text-xs text-white">{value}</span>
+  </div>
+);
+
+const ImpactSection = () => {
+  return (
+    <section id="impact" className="py-24 bg-tesoro-cream">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="bg-tesoro-red rounded-[2.5rem] overflow-hidden relative min-h-[380px] flex items-center">
+          {/* Background image */}
+          <img
+            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1800&q=80"
+            alt="Students collaborating"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
+          />
+          <div className="relative z-10 w-full p-10 sm:p-12">
+            <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-10 drop-shadow">
+              Where competition sparks confidence, not anxiety.
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-7 border border-white/25 text-white">
+                <h3 className="opacity-80 uppercase tracking-[0.2em] text-xs mb-3">
+                  After joining Clash of Prodigies
+                </h3>
+                <div className="text-4xl sm:text-5xl font-display font-bold mb-1">
+                  3x
+                </div>
+                <div className="text-xs sm:text-sm opacity-80">
+                  more likely for students to voluntarily practice past
+                  questions and problem sets.
+                </div>
+              </div>
+
+              <div className="bg-tesoro-green rounded-2xl p-7 text-tesoro-black relative overflow-hidden">
+                <h3 className="opacity-80 uppercase tracking-[0.2em] text-xs mb-3 font-bold">
+                  Teacher feedback
+                </h3>
+                <div className="text-4xl sm:text-5xl font-display font-bold mb-1">
+                  92%
+                </div>
+                <div className="text-xs sm:text-sm opacity-80 font-semibold">
+                  of teachers report higher student engagement during STEM
+                  lessons after the competition.
+                </div>
+              </div>
             </div>
-            <ArrowRight className="text-green-900" />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-const ComparisonSection = () => {
-    return (
-        <section className="py-24 bg-tesoro-cream">
-            <div className="container mx-auto px-6">
-                 <div className="bg-red-800 rounded-[3rem] overflow-hidden relative min-h-[600px] flex items-center">
-                    <img 
-                        src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=2000&auto=format&fit=crop" 
-                        alt="Burger" 
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
-                    />
-                    <div className="relative z-10 p-12 w-full">
-                        <h2 className="font-display font-bold text-4xl md:text-6xl text-white text-center mb-12 drop-shadow-lg">
-                            Where real-world spending fuels <br/> in-game rewards.
-                        </h2>
-                        
-                        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 text-white">
-                                <h3 className="opacity-80 uppercase tracking-widest text-sm mb-4">Average Gamer Spend</h3>
-                                <div className="text-5xl font-display font-bold mb-2">$13.74</div>
-                                <div className="text-sm opacity-80">Monthly Frequency: 1.68 visits</div>
-                            </div>
-                            
-                            <div className="bg-tesoro-green rounded-2xl p-8 text-tesoro-black relative overflow-hidden">
-                                <h3 className="opacity-80 uppercase tracking-widest text-sm mb-4 font-bold">Tesoro User Spend</h3>
-                                <div className="text-5xl font-display font-bold mb-2">$14.15</div>
-                                <div className="text-sm opacity-80 font-semibold">Monthly Frequency: 2.92 visits</div>
-                                
-                                <div className="absolute right-0 bottom-0 bg-black/10 px-6 py-4 rounded-tl-2xl">
-                                    <span className="text-4xl font-display font-black">+71%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-            </div>
-        </section>
-    )
-}
-
 const Footer = () => {
-    return (
-        <footer className="bg-tesoro-black text-white py-24 overflow-hidden relative">
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start mb-24">
-                    <div className="space-y-6 text-2xl font-display font-bold">
-                        <a href="#" className="block hover:text-tesoro-green">Merchants</a>
-                        <a href="#" className="block hover:text-tesoro-green">Game Studios</a>
-                        <a href="#" className="block hover:text-tesoro-green">Gamers</a>
-                        <a href="#" className="block hover:text-tesoro-green">About</a>
-                    </div>
-                    
-                    <div className="mt-12 md:mt-0 w-full md:w-1/3">
-                        <p className="font-bold mb-4">Sign up to our newsletter for all the latest news.</p>
-                        <div className="flex bg-white/10 rounded-full p-2">
-                            <input 
-                                type="email" 
-                                placeholder="Email address" 
-                                className="bg-transparent flex-1 px-4 outline-none text-white placeholder-white/50"
-                            />
-                            <button className="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-tesoro-green transition-colors">
-                                <ArrowRight size={18} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between text-sm text-gray-500">
-                    <p>© 2025 TESORO XP INC.</p>
-                    <div className="space-x-4 mt-4 md:mt-0">
-                        <a href="#">Credits</a>
-                        <a href="#">Terms</a>
-                        <a href="#">Privacy</a>
-                    </div>
-                </div>
+  return (
+    <footer className="bg-black text-white py-16 overflow-hidden relative">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
+          <div>
+            <div className="flex items-baseline justify-start mb-4">
+              <span className="w-fit text-white font-display font-black text-xl tracking-tight">
+                Clash of Prodigies&nbsp;
+              <span className="uppercase tracking-tight text-tesoro-green text-2xl">2</span>
+              </span>
+            </div>
+            <p className="text-sm text-white/70 max-w-xs">
+              Inspiring the next generation of scientists, engineers, and
+              innovators, one match at a time.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-10 w-full md:w-auto">
+            <div className="space-y-3 text-sm">
+              <p className="font-semibold mb-1">Navigation</p>
+              <a href="#about" className="block hover:text-tesoro-green">
+                About
+              </a>
+              <a href="#tracks" className="block hover:text-tesoro-green">
+                Subjects
+              </a>
+              <a href="#how" className="block hover:text-tesoro-green">
+                How it works
+              </a>
+              <a href="#impact" className="block hover:text-tesoro-green">
+                Impact
+              </a>
             </div>
 
-            {/* Background Hexagons */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-                 <Hexagon className="text-tesoro-green w-96 h-96 absolute -bottom-24 -left-24" />
-                 <Hexagon className="text-tesoro-purple w-64 h-64 absolute top-24 right-1/3" />
-                 <Hexagon className="text-tesoro-orange w-48 h-48 absolute bottom-1/3 right-12" />
+            <div className="sm:w-64">
+              <p className="font-semibold mb-3 text-sm">
+                Get updates on registration dates and resources.
+              </p>
+              <div className="flex bg-white/10 rounded-full p-1 w-fit">
+                <input
+                  autoComplete='off'
+                  type="email"
+                  placeholder="Email address"
+                  className="bg-transparent flex-1 px-4 text-xs sm:text-sm outline-none text-white placeholder-white/50"
+                />
+                <button className="bg-white text-black w-full h-9 rounded-full flex items-center justify-center hover:bg-tesoro-green transition-colors">
+                  <ArrowRight width={10} size={16} />
+                </button>
+              </div>
             </div>
-            
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none opacity-10">
-                <span className="font-display font-black text-[20vw] text-white whitespace-nowrap">TESORO</span>
-            </div>
-        </footer>
-    )
-}
+          </div>
+        </div>
 
-const GamePadIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-        <line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/>
-        <line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/>
-        <rect width="20" height="12" x="2" y="6" rx="2"/>
-    </svg>
-)
+        <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500 gap-4">
+          <p>© {new Date().getFullYear()} Clash of Prodigies. All rights reserved.</p>
+          <div className="space-x-4">
+            <a href="#" className="hover:text-tesoro-green">
+              Contact
+            </a>
+            <a href="#" className="hover:text-tesoro-green">
+              Terms
+            </a>
+            <a href="#" className="hover:text-tesoro-green">
+              Privacy
+            </a>
+          </div>
+        </div>
+      </div>
 
+      {/* Background hexagons + wordmark */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <Hexagon className="text-tesoro-green w-80 h-80 absolute -bottom-20 -left-20" />
+        <Hexagon className="text-tesoro-purple w-56 h-56 absolute top-12 right-1/3" />
+        <Hexagon className="text-tesoro-orange w-40 h-40 absolute bottom-1/3 right-6" />
+      </div>
 
-// --- Main App Component ---
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none opacity-5">
+        <span className="font-display font-black text-[18vw] text-white whitespace-nowrap">
+          PRODIGY
+        </span>
+      </div>
+    </footer>
+  );
+};
+
+// --- Main App ---
 
 function App() {
   return (
@@ -349,8 +555,8 @@ function App() {
       <Hero />
       <ValueProp />
       <HowItWorks />
-      <ComparisonSection />
-      <CurrencySection />
+      <TracksSection />
+      <ImpactSection />
       <Footer />
     </div>
   );
