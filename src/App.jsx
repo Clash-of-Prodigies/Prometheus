@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Menu,
-  Trophy,
-  Users,
-  Gamepad2,
-  Coins,
-  Zap,
-  ArrowRight,
-  Check,
-  Pi,
-  Dna,
-  FlaskConical,
-} from 'lucide-react';
+import { Menu, Trophy, Users, Gamepad2, Coins, Zap, ArrowRight, Check, Pi, Dna, FlaskConical, Download, } from 'lucide-react';
+
+// --- Secondary Functions
+
+function DownloadRulebook() {
+  const Url = new URL("https://drive.usercontent.google.com/u/0/uc");
+  const a = document.createElement("a");
+  Url.searchParams.set('id', '1oTD9fUXDAqXHW3vzamDbnLOUsKY2eOD9')
+  a.href = Url;
+  a.download = "ClashOfProdigies.pdf";
+  a.click(); a.remove();
+}
 
 // --- Shared UI ---
 
@@ -135,8 +134,8 @@ const Hero = () => {
               <Trophy className="w-4 h-4" />
               Register for Season 2
             </button>
-            <button className="inline-flex items-center justify-center gap-2 border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/10 transition-colors">
-              <ArrowRight className="w-4 h-4" />
+            <button onClick={() => DownloadRulebook()} className="inline-flex items-center justify-center gap-2 border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/10 transition-colors">
+              <Download className="w-4 h-4" />
               Download rulebook
             </button>
           </motion.div>
