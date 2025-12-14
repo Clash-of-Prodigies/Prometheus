@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Menu, Trophy, Users, Gamepad2, Coins, Zap, ArrowRight, Check, Pi, Dna, FlaskConical, Download, } from 'lucide-react';
+import { motion, } from 'framer-motion';
+import { useForm, ValidationError } from '@formspree/react';
+import { Menu, X, Trophy, Users, Gamepad2, Coins, Zap, ArrowRight, Check, Pi, Dna, FlaskConical, Download, } from 'lucide-react';
 
 // --- Secondary Functions
 
@@ -15,11 +16,133 @@ function DownloadRulebook() {
 
 // --- Shared UI ---
 
-const Navbar = () => {
+const RegisterCard = ({ onCancel }) => {
+  const [state, handleSubmit] = useForm("xrbndyrj");
+    if (state.succeeded) return <p></p>;
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70  backdrop-blur-sm px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.25 }}
+        className="w-full max-w-lg rounded-3xl bg-tesoro-black border border-white/10 text-white p-6 sm:p-8 shadow-2xl"
+      >
+        <h2 className="font-display font-bold text-2xl sm:text-3xl mb-2">
+          Register for Season 3
+        </h2>
+        <p className="text-sm text-white/70 mb-4">
+          All asterisk fields (*) are required. Enroll into greatness!
+        </p>
+
+        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="f_n">
+                Full Legal Name*
+              </label>
+              <input id="f_n" name="full_name" required placeholder="Oluwajuwon Adedowole"
+              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="d_n">
+                Display Name*
+              </label>
+              <input id="d_n" name="display_name" placeholder="The Oracle" required
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="mail">
+                Email
+              </label>
+              <input id="mail" type="email" name="email" placeholder="name@example.com"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="tid">
+                Telegram Chat ID
+              </label>
+              <input id="tid" name="telegram_id" disabled placeholder="@yourhandle"
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none cursor-not-allowed focus:border-tesoro-green"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-white/70 mb-1">
+                Age*
+              </label>
+              <input type="number" name="age" required placeholder="16"
+              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-white/70 mb-1">
+                Referral Code
+              </label>
+              <input name="referrer" required
+              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
+                placeholder="AB6 7XY"
+              />
+            </div>
+
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-medium text-white/70 mb-1">
+                Name of Institution*
+              </label>
+              <select
+                name="student_level"
+                required
+                className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm font-medium text-white/70 outline-none focus:border-tesoro-green bg-tesoro-black"
+              >
+                <option style={{"backgroundColor": "dimgray"}} className="text-xs font-medium text-white/70" value="">--</option>
+                <option style={{"backgroundColor": "dimgray"}} className="text-xs font-medium text-white/70" value="none">None</option>
+              </select>
+            </div>
+
+            <div className="w-full flex items-center gap-2 sm:col-span-2">
+              <label className="text-xs font-medium text-white/70 mb-1" htmlFor="agreement">
+                I agree to the terms and conditions.*
+              </label>
+              <input id="agreement" type="checkbox" name="agreed" required
+              className="rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <button
+              type="button" disabled={state.submitting}
+              onClick={onCancel}
+              className="px-4 py-2 rounded-full border border-white/30 text-sm hover:bg-white/10 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit" disabled={state.submitting}
+              className="px-4 py-2 rounded-full bg-tesoro-green text-black text-sm font-semibold hover:scale-[1.02] transition-transform"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </div>
+  );
+};
+
+const Navbar = ({ onRegisterClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      setIsMobileOpen(false);
+    }
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -33,15 +156,13 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-        {/* Brand */}
         <div className="flex items-baseline justify-start cursor-pointer" onClick={() => document.location.replace('/')}>
               <span className="w-fit text-white font-display font-black text-xl tracking-tight">
                 Clash of Prodigies&nbsp;
-              <span className="uppercase tracking-tight text-tesoro-green text-2xl">2</span>
+              <span className="uppercase tracking-tight text-tesoro-green text-2xl">3</span>
               </span>
         </div>
 
-        {/* Desktop nav */}
         <div className="hidden md:flex items-center space-x-8 text-white font-medium text-sm">
           <a href="#about" className="hover:text-tesoro-green transition-colors">
             About
@@ -55,16 +176,35 @@ const Navbar = () => {
           <a href="#impact" className="hover:text-tesoro-green transition-colors">
             Impact
           </a>
-          <button className="bg-tesoro-yellow text-black px-5 py-2 rounded-full font-bold hover:scale-105 transition-transform">
+          <button className="bg-tesoro-yellow text-black px-5 py-2 rounded-full font-bold hover:scale-105 transition-transform" onClick={onRegisterClick}>
             Register
           </button>
         </div>
 
-        {/* Mobile menu trigger (we can wire it later) */}
-        <button className="md:hidden text-white">
-          <Menu />
+        {/* Mobile menu trigger */}
+        <button
+        className="md:hidden text-white"
+        onClick={() => setIsMobileOpen((prev) => !prev)}
+        aria-label="Toggle navigation menu">
+          {isMobileOpen ? <X /> : <Menu />}
         </button>
       </div>
+
+      {/* Mobile menu */}
+      {isMobileOpen && (
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
+        className="md:hidden absolute top-full inset-x-0 bg-black/95 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col space-y-4 text-white text-sm">
+        <a href="#about" className="py-1 hover:text-tesoro-green" onClick={() => setIsMobileOpen(false)}>About</a>
+        <a href="#how" className="py-1 hover:text-tesoro-green" onClick={() => setIsMobileOpen(false)}>How it works</a>
+        <a href="#tracks" className="py-1 hover:text-tesoro-green" onClick={() => setIsMobileOpen(false)}>Subjects</a>
+        <a href="#impact" className="py-1 hover:text-tesoro-green" onClick={() => setIsMobileOpen(false)}>Impact</a>
+        <button
+        className="mt-2 bg-tesoro-yellow text-black px-5 py-2 rounded-full font-bold"
+        onClick={() => {setIsMobileOpen(false); onRegisterClick(true)}}>Register</button>
+      </div>
+    </motion.div>
+  )}
     </nav>
   );
 };
@@ -77,7 +217,7 @@ const Hexagon = ({ className }) => (
 
 // --- Sections ---
 
-const Hero = () => {
+const Hero = ({ onRegisterClick }) => {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-black">
       {/* Background image */}
@@ -130,9 +270,11 @@ const Hero = () => {
             transition={{ delay: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 mt-8"
           >
-            <button className="inline-flex items-center justify-center gap-2 bg-tesoro-green text-black font-semibold px-6 py-3 rounded-full hover:scale-105 transition-transform">
+            <button onClick={onRegisterClick}
+            className="inline-flex items-center justify-center bg-tesoro-green px-6 py-3
+            text-black font-semibold gap-2 rounded-full hover:scale-105">
               <Trophy className="w-4 h-4" />
-              Register for Season 2
+              Register for Season 3
             </button>
             <button onClick={() => DownloadRulebook()} className="inline-flex items-center justify-center gap-2 border border-white/40 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/10 transition-colors">
               <Download className="w-4 h-4" />
@@ -459,6 +601,24 @@ const ImpactSection = () => {
   );
 };
 
+const NewsLetter = () => {
+  const [state, handleSubmit] = useForm("mldqvwgz");
+  if (state.succeeded) {
+      return <p className="font-semibold mb-3 text-sm">You will now recieve updates!</p>;
+  }
+  return (
+    <form className="flex bg-white/10 rounded-full p-1 w-fit" onSubmit={handleSubmit}>
+      <input autoComplete='off' type="email" name="email" placeholder="Enter email address"
+        className="bg-transparent flex-1 px-4 text-xs sm:text-sm outline-none text-white placeholder-white/50"
+      />
+      <ValidationError prefix="Email" field="email" errors={state.errors} />
+      <button type="submit" disabled={state.submitting} className="bg-white text-black w-full h-9 rounded-full flex items-center justify-center hover:bg-tesoro-green transition-colors">
+        <ArrowRight width={10} size={16} />
+      </button>
+    </form>
+  );
+}
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-16 overflow-hidden relative">
@@ -468,7 +628,7 @@ const Footer = () => {
             <div className="flex items-baseline justify-start mb-4">
               <span className="w-fit text-white font-display font-black text-xl tracking-tight">
                 Clash of Prodigies&nbsp;
-              <span className="uppercase tracking-tight text-tesoro-green text-2xl">2</span>
+              <span className="uppercase tracking-tight text-tesoro-green text-2xl">3</span>
               </span>
             </div>
             <p className="text-sm text-white/70 max-w-xs">
@@ -479,36 +639,17 @@ const Footer = () => {
 
           <div className="flex flex-col sm:flex-row gap-10 w-full md:w-auto">
             <div className="space-y-3 text-sm">
-              <p className="font-semibold mb-1">Navigation</p>
-              <a href="#about" className="block hover:text-tesoro-green">
-                About
-              </a>
-              <a href="#tracks" className="block hover:text-tesoro-green">
-                Subjects
-              </a>
-              <a href="#how" className="block hover:text-tesoro-green">
-                How it works
-              </a>
-              <a href="#impact" className="block hover:text-tesoro-green">
-                Impact
-              </a>
+              <a href="#about" className="block hover:text-tesoro-green">About</a>
+              <a href="#how" className="block hover:text-tesoro-green">How it works</a>
+              <a href="#tracks" className="block hover:text-tesoro-green">Subjects</a>
+              <a href="#impact" className="block hover:text-tesoro-green">Impact</a>
             </div>
 
             <div className="sm:w-64">
               <p className="font-semibold mb-3 text-sm">
                 Get updates on registration dates and resources.
               </p>
-              <div className="flex bg-white/10 rounded-full p-1 w-fit">
-                <input
-                  autoComplete='off'
-                  type="email"
-                  placeholder="Email address"
-                  className="bg-transparent flex-1 px-4 text-xs sm:text-sm outline-none text-white placeholder-white/50"
-                />
-                <button className="bg-white text-black w-full h-9 rounded-full flex items-center justify-center hover:bg-tesoro-green transition-colors">
-                  <ArrowRight width={10} size={16} />
-                </button>
-              </div>
+                <NewsLetter />
             </div>
           </div>
         </div>
@@ -516,14 +657,11 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between text-xs text-gray-500 gap-4">
           <p>© {new Date().getFullYear()} Clash of Prodigies. All rights reserved.</p>
           <div className="space-x-4">
-            <a href="#" className="hover:text-tesoro-green">
-              Contact
+            <a href="https://www.freeprivacypolicy.com/live/6fbb5983-935c-493b-80c0-0e863dbccd9a" className="hover:text-tesoro-green">
+              Terms of Service
             </a>
-            <a href="#" className="hover:text-tesoro-green">
-              Terms
-            </a>
-            <a href="#" className="hover:text-tesoro-green">
-              Privacy
+            <a href="https://www.freeprivacypolicy.com/live/8dd76e22-df05-4c81-b107-b09657a045ca" className="hover:text-tesoro-green">
+              Privacy Policy
             </a>
           </div>
         </div>
@@ -548,17 +686,25 @@ const Footer = () => {
 // --- Main App ---
 
 function App() {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  const openRegister = () => setIsRegisterOpen(true);
+  const closeRegister = () => setIsRegisterOpen(false);
+
   return (
     <div className="font-sans antialiased bg-tesoro-cream selection:bg-tesoro-green selection:text-black">
-      <Navbar />
-      <Hero />
+      <Navbar onRegisterClick={openRegister} />
+      <Hero onRegisterClick={openRegister} />
       <ValueProp />
       <HowItWorks />
       <TracksSection />
       <ImpactSection />
       <Footer />
+
+      {isRegisterOpen && <RegisterCard onCancel={closeRegister} />}
     </div>
   );
 }
+
 
 export default App;
