@@ -167,11 +167,11 @@ const Navbar = ({ onRegisterClick }) => {
           <a href="#about" className="hover:text-tesoro-green transition-colors">
             About
           </a>
-          <a href="#tracks" className="hover:text-tesoro-green transition-colors">
-            Subjects
-          </a>
           <a href="#how" className="hover:text-tesoro-green transition-colors">
             How it works
+          </a>
+          <a href="#tracks" className="hover:text-tesoro-green transition-colors">
+            Subjects
           </a>
           <a href="#impact" className="hover:text-tesoro-green transition-colors">
             Impact
@@ -504,7 +504,7 @@ const TracksSection = () => {
             accent="bg-green-400"
             icon={<Dna className="text-green-900" />}
             title="House of Weber - Biology"
-            subtitle="Stoichiometry, reactions, cells, genetics, and real-world applications in health and industry."
+            subtitle="Cells, ecology, human anatomy, and the science of life in all its forms."
           />
           <SubjectCard
             accent="bg-yellow-400"
