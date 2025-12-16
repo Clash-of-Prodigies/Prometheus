@@ -497,7 +497,7 @@ const TracksSection = () => {
           <SubjectCard
             accent="bg-red-400"
             icon={<Zap className="text-red-900" />}
-            title="House of Bami - Physics"
+            title="House of Bamzy - Physics"
             subtitle="Mechanics, waves, electricity, and everyday reasoning about how the world works."
           />
           <SubjectCard
