@@ -53,7 +53,7 @@ const RegisterCard = ({ onCancel, onSubmitForm }) => {
               <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="f_n">
                 Full Legal Name*
               </label>
-              <input id="f_n" name="full_name" required placeholder="Last-Name Firstname"
+              <input id="f_n" name="full-name" required placeholder="Last-Name Firstname"
               className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
               pattern="[A-Za-z]+(?:-[A-Za-z]+)*\s+[A-Za-z]+" autoComplete="off"
               title="Please enter both your last and first name, separated by a space. Last name may include hyphens."
