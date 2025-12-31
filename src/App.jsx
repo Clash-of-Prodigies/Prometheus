@@ -1,5 +1,5 @@
 import React, { useState, useEffect, } from 'react';
-import { motion, } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useForm, ValidationError } from '@formspree/react';
 import { Menu, X, Trophy, Users, Gamepad2, Coins, Zap, ArrowRight, Check, Pi, Dna, FlaskConical, Download, } from 'lucide-react';
 
@@ -7,8 +7,6 @@ import { Menu, X, Trophy, Users, Gamepad2, Coins, Zap, ArrowRight, Check, Pi, Dn
 
 const TermsUrl = "https://www.freeprivacypolicy.com/live/6fbb5983-935c-493b-80c0-0e863dbccd9a";
 const PrivacyUrl = "https://www.freeprivacypolicy.com/live/8dd76e22-df05-4c81-b107-b09657a045ca";
-const FormSubmissionUrl = "https://sobbingly-hydrochloric-joel.ngrok-free.dev/auth/register";
-
 // --- Secondary Functions
 
 function DownloadRulebook() {
@@ -21,233 +19,6 @@ function DownloadRulebook() {
 }
 
 // --- Shared UI ---
-
-const RegisterCard = ({ onCancel, onSubmitForm }) => {
-  const [submitting, setSubmitting] = useState(false);
-  return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70  backdrop-blur-sm px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 16, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.25 }}
-        className="w-full max-w-lg rounded-3xl bg-tesoro-black border border-white/10 text-white p-6 sm:p-8 shadow-2xl"
-      >
-        <h2 className="font-display font-bold text-2xl sm:text-3xl mb-2">
-          Register for Season 3
-        </h2>
-        <p className="text-sm text-white/70 mb-4">
-          All asterisk fields (*) are required. Enroll into greatness!
-        </p>
-
-        <form onSubmit={async (e) => {
-          setSubmitting(true);
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const data = Object.fromEntries(formData.entries());
-          onSubmitForm({ data: data, succeeded: false, errors: [] });
-          setSubmitting(false);
-        }}
-        className="mt-4 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="f_n">
-                Full Legal Name*
-              </label>
-              <input id="f_n" name="full-name" required placeholder="Last-Name Firstname"
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              pattern="[A-Za-z]+(?:-[A-Za-z]+)*\s+[A-Za-z]+" autoComplete="off"
-              title="Please enter both your last and first name, separated by a space. Last name may include hyphens."
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="u_n">
-                Username*
-              </label>
-              <input id="u_n" name="username" placeholder="The_Oracle" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              pattern="[A-Za-z0-9_]{3,10}" autoComplete="off"
-              title="Username should be 3-10 characters long and can include letters, numbers, and underscores only."
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="mail">
-                Email
-              </label>
-              <input id="mail" type="email" name="email" placeholder="name@example.com"
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
-              title="Please enter a valid email address." autoComplete="off"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="tid">
-                Telegram Chat ID
-              </label>
-              <input id="tid" name="telegram" disabled placeholder="@yourhandle"
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none cursor-not-allowed focus:border-tesoro-green"
-              autoComplete="off"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="age">
-                Age*
-              </label>
-              <input id="age" type="number" min={10} max={25} name="age" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="referrer">
-                Referral Code
-              </label>
-              <input id="referrer" name="referrer" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              placeholder="AB6 7XY"
-              pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\s[0-9][A-Z]{2}" autoComplete="off"
-              title="Please enter a valid referral code."
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="password">Password*</label>
-              <input id="password" name="password" type="password" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" autoComplete="off"
-              title="At least 8 characters with uppercase, lowercase, a number, and a symbol."
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="confirm-password">
-                Confirm Password*
-              </label>
-              <input id="confirm-password" name="confirm-password" type="password" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none"
-              title="Please re-enter your password for confirmation." autoComplete="off"
-              onChange={() => {
-                const password = document.querySelector('input[name="password"]');
-                const confirmPassword = document.querySelector('input[name="confirm-password"]');
-                if (password.value !== confirmPassword.value) {
-                  confirmPassword.classList.add("focus:border-tesoro-red");
-                  confirmPassword.classList.remove("focus:border-tesoro-green");
-                  confirmPassword.title = "Passwords do not match.";
-                  confirmPassword.setCustomValidity("Passwords do not match.");
-                } else {
-                  confirmPassword.classList.add("focus:border-tesoro-green");
-                  confirmPassword.classList.remove("focus:border-tesoro-red");
-                  confirmPassword.title = "";
-                  confirmPassword.setCustomValidity("");
-                }
-              }}
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-white/70 mb-1" htmlFor="institution">
-                Name of Institution*
-              </label>
-              {/* <select id="institution" name="institution" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm font-medium text-white/70 outline-none focus:border-tesoro-green bg-tesoro-black"
-              >
-                <option style={{"backgroundColor": "dimgray"}} className="text-xs font-medium text-white/70" value="">--</option>
-                <option style={{"backgroundColor": "dimgray"}} className="text-xs font-medium text-white/70" value="none">None</option>
-              </select> */}
-              <input id="institution" name="institution" required
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none"
-              placeholder="Federal University of Technology Akure"
-              />
-            </div>
-
-            <div className="w-full flex items-center gap-2 sm:col-span-2">
-              <label className="text-xs font-medium text-white/70 mb-1" htmlFor="agreement">
-                I agree to the <a href={TermsUrl} className="hover:text-tesoro-green">Terms and Conditions
-              </a>*</label>
-              <input id="agreement" type="checkbox" name="agreed" required
-              className="rounded-xl bg-white/5 border border-white/15 px-3 py-2 text-sm outline-none focus:border-tesoro-green"
-              />
-            </div>
-          </div>
-          <div className="flex justify-end gap-3 pt-2">
-            <button type="button" disabled={submitting} onClick={onCancel}
-            className="px-4 py-2 rounded-full border border-white/30 text-sm hover:bg-white/10 transition-colors"
-            >
-              Cancel
-            </button>
-            <button type="submit" disabled={submitting}
-            className="px-4 py-2 rounded-full bg-tesoro-green text-black text-sm font-semibold hover:scale-[1.02] transition-transform"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </motion.div>
-    </div>
-  );
-};
-
-const Toast = ({ message, type = "info", onClose }) => {
-  const lines = Array.isArray(message) ? message : [message].filter(Boolean);
-
-  const isError = type === "error";
-  const isSuccess = type === "success";
-
-  const borderClass = isError
-    ? "border-tesoro-red"
-    : isSuccess
-    ? "border-tesoro-green"
-    : "border-white/20";
-
-  const dotClass = isError
-    ? "bg-tesoro-red"
-    : isSuccess
-    ? "bg-tesoro-green"
-    : "bg-white/70";
-
-  // Auto-dismiss after a few seconds
-  useEffect(() => {
-    const timer = setTimeout(onClose, 6000);
-    return () => clearTimeout(timer);
-  }, [onClose]);
-
-  if (!lines.length) return null;
-
-  return (
-    <div className="fixed inset-x-0 bottom-4 z-[80] flex justify-center px-4 sm:justify-end sm:bottom-6">
-      <motion.div
-        initial={{ opacity: 0, y: 16, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.2 }}
-        className={`max-w-sm w-full rounded-2xl bg-black/90 ${borderClass} border shadow-xl px-4 py-3 sm:px-5 sm:py-4 flex items-start gap-3`}
-        role={isError ? "alert" : "status"}
-        aria-live={isError ? "assertive" : "polite"}
-      >
-        {/* Accent dot */}
-        <div className={`mt-1 w-2 h-2 rounded-full ${dotClass}`} />
-
-        {/* Content */}
-        <div className="flex-1 text-xs sm:text-sm text-white/90 space-y-1">
-          {lines.map((line, idx) => (
-            <p key={idx}>{line}</p>
-          ))}
-        </div>
-
-        {/* Close button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="ml-2 text-white/60 hover:text-white transition-colors"
-          aria-label="Dismiss notification"
-        >
-          <X className="w-4 h-4" />
-        </button>
-      </motion.div>
-    </div>
-  );
-};
 
 const Navbar = ({ onRegisterClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -797,52 +568,7 @@ const Footer = () => {
 // --- Main App ---
 
 function App() {
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [registerFeedback, setRegisterFeedback] = useState({});
-
-  const openRegister = () => setIsRegisterOpen(true);
-  const closeRegister = () => setIsRegisterOpen(false);
-
-  useEffect(() => {
-  if (!formData.data) return;
-
-  const submitRegistration = async () => {
-    try {
-      const res = await fetch(
-        FormSubmissionUrl,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData.data),
-        }
-      );
-
-      if (!res.ok) {
-        const data = await res.json();
-        setRegisterFeedback({
-          message: data.message || ['Registration failed. Please try again.'],
-          type: 'error',
-        });
-        return;
-      }
-
-      setRegisterFeedback({
-        message: ['Registration successful.'],
-        type: 'success',
-      });
-    } catch (e) {
-      console.error('Error logging form submission:', e);
-      setRegisterFeedback({
-        message: ['Network error. Please check your connection and try again.'],
-        type: 'error',
-      });
-    }
-  };
-
-  submitRegistration();
-  }, [formData]);
-
+  const openRegister = () => window.location.replace('https://auth.clashofprodigies.org/register');
 
   return (
     <div className="font-sans antialiased bg-tesoro-cream selection:bg-tesoro-green selection:text-black">
@@ -853,11 +579,6 @@ function App() {
       <TracksSection />
       <ImpactSection />
       <Footer />
-
-      {isRegisterOpen && <RegisterCard onCancel={closeRegister} onSubmitForm={setFormData}/>}
-      {Object.entries(registerFeedback).length > 0 && (
-        <Toast message={registerFeedback.message} type={registerFeedback.type} onClose={() => setRegisterFeedback({})} />
-      )}
     </div>
   );
 }
