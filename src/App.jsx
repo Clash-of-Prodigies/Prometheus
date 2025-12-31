@@ -7,6 +7,7 @@ import { Menu, X, Trophy, Users, Gamepad2, Coins, Zap, ArrowRight, Check, Pi, Dn
 
 const TermsUrl = "https://www.freeprivacypolicy.com/live/6fbb5983-935c-493b-80c0-0e863dbccd9a";
 const PrivacyUrl = "https://www.freeprivacypolicy.com/live/8dd76e22-df05-4c81-b107-b09657a045ca";
+
 // --- Secondary Functions
 
 function DownloadRulebook() {
